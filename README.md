@@ -1,34 +1,11 @@
-# AWS Distro for OpenTelemetry Helm Charts
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+# ADOT Collector Chart for EKS Fargate
 
-## Introduction
-This AWS Distro for OpenTelemetry (ADOT) Helm Charts repository contains [Helm](https://helm.sh/) charts to provide easy mechanisms to setup the ADOT Collector and other collection agents such as Fluent Bit to collect telemetry data such as metrics, logs and traces to send to AWS monitoring services.
+This is a fork of [ADOT Collector Chart for EKS on EC2](https://github.com/aws-observability/aws-otel-helm-charts), stripped to the bare minimum and modified to work on AWS EKS Fargate
 
-This repository contains a [Helm](https://helm.sh/) chart to provide easy to operate, end-to-end  [AWS Elastic Kubernetes Service](https://aws.amazon.com/eks/) (EKS) on [AWS Elastic Compute Cloud](https://aws.amazon.com/ec2/) (EC2) monitoring with [AWS Distro for OpenTelemetry(ADOT) Collector](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-EKS-otel.html) for metrics and [Fluent Bit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Container-Insights-setup-logs-FluentBit.html) for logs. This Helm chart is useful for customers who use EKS on EC2 and want to collect metrics and logs to send to Amazon CloudWatch Container Insights and Amazon Managed Service for Prometheus(AMP).
+Source: 
+ - Fargate manifests: https://github.com/aws-observability/aws-otel-collector/blob/main/deployment-template/eks/otel-fargate-container-insights.yaml
+ - IRSA config for Fargate: https://aws-otel.github.io/docs/getting-started/container-insights/eks-fargate#deploying-adot-collector-to-eks-fargate
 
-## Getting Started
+Bugs: 
+- Only the `fargate-container-insights` namespace is being monitored as of now
 
-[Helm](https://helm.sh/) must be installed to use the chart. Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
-
-Once Helm is set up properly, add this repo as follows:
-```console
-$ helm repo add aws-observability https://aws-observability.github.io/aws-otel-helm-charts
-$ helm search repo aws-observability # Run this command in order to see the charts.
-```
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
-
-## License
-
-This project is licensed under the Apache 2.0 License.
-
-# ADOT Roadmap 
-
-You can track upcoming features and enhancements for ADOT on its [roadmap](https://github.com/orgs/aws-observability/projects/4).
-
-# Maintainers
-
-- [Anthony Mirabella](https://github.com/Aneurysm9)
-- [Ruthvik Ravindra](https://github.com/ruthvik17)
