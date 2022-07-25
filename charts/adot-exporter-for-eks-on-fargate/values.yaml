@@ -1,0 +1,30 @@
+adotCollector:
+  image:
+    name: "aws-otel-collector"
+    repository: "amazon/aws-otel-collector"
+    tag: "latest"
+    daemonSetPullPolicy: "IfNotPresent"
+    sidecarPullPolicy: "Always"
+  clusterRoleName: "adotcol-admin-role"
+  clusterRoleBindingName: "adotcol-admin-role-binding"
+  service:
+    name: "adot-collector-service"
+    labels:
+      app: "aws-adot"
+      component: "adot-collector"
+    port: 8888
+  serviceAccountName: "adot-collector"
+  namespace: "fargate-container-insights"
+  awsRegion: "eu-west-1"
+  awsEKSClusterName: "core_cluster"
+  configMap:
+    name: "adot-collector-config"
+    labels:
+      app: aws-adot
+      component: adot-collector-config
+  statefulSet:
+    name: "adot-collector"
+    resources:
+      requests:
+        cpu: 0.5
+        memory: 1Gi

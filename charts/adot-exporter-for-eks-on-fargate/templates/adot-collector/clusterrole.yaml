@@ -1,0 +1,18 @@
+# ClusterRole for ADOT Collector as a DaemonSet contains rules, and defines and grants permissions to specified resources/endpoints.
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ .Values.adotCollector.clusterRoleName }}
+rules:
+  - apiGroups: [""]
+    resources:
+      - nodes
+      - nodes/proxy
+      - nodes/metrics
+      - services
+      - endpoints
+      - pods
+      - pods/proxy
+    verbs: ["get", "list", "watch"]
+  - nonResourceURLs: [ "/metrics/cadvisor"]
+    verbs: ["get", "list", "watch"]

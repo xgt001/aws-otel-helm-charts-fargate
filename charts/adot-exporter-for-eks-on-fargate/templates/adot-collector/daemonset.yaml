@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.adotCollector.statefulSet.name }}
+  namespace: {{ .Values.adotCollector.namespace }}
+  labels:
+    app: {{ .Values.adotCollector.service.labels.app }}
+    component: {{ .Values.adotCollector.service.labels.component }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.adotCollector.service.labels.app }}
+      component: {{ .Values.adotCollector.service.labels.component }}
+  serviceName: {{ .Values.adotCollector.service.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.adotCollector.service.labels.app }}
+        component: {{ .Values.adotCollector.service.labels.component }}
+    spec:
+      serviceAccountName: {{ .Values.adotCollector.serviceAccountName }}
+      securityContext:
+        fsGroup: 65534
+      containers:
+        - image: {{ .Values.adotCollector.image.repository }}:{{ .Values.adotCollector.image.tag }}
+          name: {{ .Values.adotCollector.statefulSet.name }}
+          imagePullPolicy: Always
+          command:
+            - "/awscollector"
+            - "--config=/conf/adot-collector-config.yaml"
+          env:
+            - name: OTEL_RESOURCE_ATTRIBUTES
+              value: "ClusterName={{ .Values.adotCollector.awsEKSClusterName }}"
+          resources:
+            limits:
+              cpu: {{ .Values.adotCollector.statefulSet.resources.requests.cpu }}
+              memory: {{ .Values.adotCollector.statefulSet.resources.requests.memory }}
+            requests:
+              cpu: {{ .Values.adotCollector.statefulSet.resources.requests.cpu }}
+              memory: {{ .Values.adotCollector.statefulSet.resources.requests.memory }}
+          volumeMounts:
+            - name: adot-collector-config-volume
+              mountPath: /conf
+      volumes:
+        - configMap:
+            name: {{ .Values.adotCollector.configMap.name }}
+            items:
+              - key: adot-collector-config
+                path: adot-collector-config.yaml
+          name: adot-collector-config-volume

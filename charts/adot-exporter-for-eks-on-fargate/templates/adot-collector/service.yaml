@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.adotCollector.service.name }}
+  namespace: {{ .Values.adotCollector.namespace }}
+  labels:
+    app: {{ .Values.adotCollector.service.labels.app }}
+    component: {{ .Values.adotCollector.service.labels.component }}
+spec:
+  ports:
+    - name: metrics # default endpoint for querying metrics.
+      port: {{ .Values.adotCollector.service.port }}
+  selector:
+    component: {{ .Values.adotCollector.service.labels.component }}
+  type: ClusterIP

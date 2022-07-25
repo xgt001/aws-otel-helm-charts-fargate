@@ -1,0 +1,16 @@
+apiVersion: v2
+name: adot-exporter-for-eks-on-fargate
+description: A fork of adot-exporter-for-eks-on-ec2 chart for adot-collector on Fargate for container insights.
+type: application
+version: 0.1.0
+appVersion: "0.18.0"
+kubeVersion: ">=1.16.0-0"
+maintainers:
+  - name: Ganesh Hegde
+    email: ganesh.hegde@mailbox.org
+  - name: Bryan Aguilar
+    email: bryaag@amazon.com
+home: https://github.com/aws-observability/aws-otel-helm-charts/adot-exporter-for-eks-on-ec2
+sources:
+  - https://github.com/aws-observability/aws-otel-helm-charts/adot-exporter-for-eks-on-ec2
+  - https://github.com/aws-observability/aws-otel-collector/blob/main/deployment-template/eks/otel-fargate-container-insights.yaml
