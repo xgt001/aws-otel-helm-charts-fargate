@@ -22,7 +22,7 @@ spec:
       securityContext:
         fsGroup: 65534
       containers:
-        - image: {{ .Values.adotCollector.image.repository }}:{{ .Values.adotCollector.image.tag }}
+        - image: {{ .Values.adotCollector.image.repository }}:{{ .Chart.AppVersion}}
           name: {{ .Values.adotCollector.statefulSet.name }}
           imagePullPolicy: Always
           command:

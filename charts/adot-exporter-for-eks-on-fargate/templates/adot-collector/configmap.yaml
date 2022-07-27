@@ -36,6 +36,11 @@ data:
                 target_label: __metrics_path__
                 # Changes the default metrics path to kubelet's proxy cadvdisor metrics endpoint
                 replacement: /api/v1/nodes/$${1}/proxy/metrics/cadvisor
+              - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port]
+                action: replace
+                regex: ([^:]+)(?::\d+)?;(\d+)
+                replacement: $$1:$$2
+                target_label: __address__
             metric_relabel_configs:
               # extract readable container/pod name from id field
               - action: replace

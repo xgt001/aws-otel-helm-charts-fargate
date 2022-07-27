@@ -2,8 +2,8 @@ apiVersion: v2
 name: adot-exporter-for-eks-on-fargate
 description: A fork of adot-exporter-for-eks-on-ec2 chart for adot-collector on Fargate for container insights.
 type: application
-version: 0.1.0
-appVersion: "0.18.0"
+version: 0.1.2
+appVersion: "v0.17.1"
 kubeVersion: ">=1.16.0-0"
 maintainers:
   - name: Ganesh Hegde

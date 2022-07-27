@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: adotcol-get-aws-auth-configmap
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: get-aws-auth-configmap
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.adotCollector.serviceAccountName }}
+  namespace: {{ .Release.Namespace }}
